@@ -1,0 +1,23 @@
+Initial merge:
+
+git remote add qcacld-3.0 https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qcacld-3.0
+
+git fetch qcacld-3.0 <TAG>
+
+git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
+
+git read-tree --prefix=drivers/staging/qcacld-3.0 -u FETCH_HEAD
+
+git commit
+
+Updating to a newer tag:
+
+git fetch qcacld-3.0 <TAG>
+
+git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD
+
+Repeat the above for 
+qca-wifi-host-cmn  and fw-api as well.
+qcacld-3.0 source: https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qcacld-3.0
+fw-api source: https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/fw-api
+qca-wifi-host-cmn source: https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-wifi-host-cmn

@@ -1,0 +1,112 @@
+
+
+# Update : Indonesian translation below this English Version 
+
+####### English version
+
+So just a quick note to people who dirty flash a lot. You might randomly experience longer app launch times 
+after flashing a ROM and the only apparent way to fix it was to do a clean flash.
+I experienced this a few times and decided to investigate and saw that it had something to do 
+with how dex2oat works after you dirty flash (it refuses to optimise properly?). 
+
+What I found fixed the issue was to manually run dex2oat on everything after it booted into the system, 
+and after it has finished the process (could take super long depending on how many apps you have), 
+everything went back to its speedy state.
+
+(And it seems improve idle drain (big battery usage by system), because we're forcing doing task 
+that only can run if some condition only, but also sometimes can unexpectedly happens while phone was idle, 
+so it's causing huge idle drain usage)
+
+How to:
+
+# If you have root/magisk:
+1. Open terminal and enter the following commands (allow the terminal for root in magisk when it asked):
+
+su -c "cmd package bg-dexopt-job"
+
+2. Just wait until it completed by itself (on Android 10 will display "Success", on Nougat-Pie it just a new prompt line)
+
+
+# If you don't have root:
+1. On your computer, enter the following commands in a console/terminal window:
+adb shell
+cmd package bg-dexopt-job
+
+
+Disconnecting your phone will abort the process, it is completely safe to interrupt the process.
+On non-rooted devices you might see an error like this "user 2000 nor current process has Android.permission.Update_Device_Stats"
+
+The solution? The error is safe to ignore and you don't need to worry. 
+If you're concerned you can run that command a second time and the error should not occur during the second run
+
+Note : You can also do this after clean flash, after complete restore app from titanium backup/migrate or from Google (Play Store)
+
+
+Curious what the code does? See here : 
+https://android.googlesource.com/platform/frameworks/base.git/+/f7edab63d9358b9a4e0dbec3243f6db9f50a2bbe
+
+credit : 
+- tomascus @ xda-developers
+- anupritaisno1 @ https://forums.oneplus.com/threads/charging-battery-performance-caches-and-battery-calibration-myths-busted.993896/
+
+
+
+
+####### Versi bahasa Indo :
+
+Tujuan ane bikin catetan ini ditujukan untuk kalian yang merasa tiap habis dirty update rom, rasanya itu buka aplikasi lama banget 
+kyk pengen clean flash aja gitu lho, ane sendiri juga merasa kyk gitu. Nah setelah ane investigasi
+ternyata ada hubungannya sama cara kerjanya dex2oat, dan program satu ini kayak nolak buat ngerjain tugasnya gitu lho.
+
+Setelah ane cek & ricek lebih lanjut, ternyata kita bisa "memaksa" si dex2oat agar langsung jalan setelah melakukan update rom
+dan tentu aja, bikin launch aplikasi jadi cepat seperti semula lagi. Satu catatan, mungkin aja proses pemaksaan optimalisasi ini
+bakalan berjalan lama dan bisa jadi memakan lebih banyak space memory internal, tapi itu semua tergantung dari jumlah aplikasi 
+yang terinstal. Tapi dari pengalaman pribadi ane, biasanya memakan waktu ~5-12 menit dan memakan space tambahan ~3 gb dengan jumlah 
+aplikasi terinstall sekitar 40 an. Tapi worth it kok buat dicoba.
+
+(oh iya, keknya ini juga mengoptimalkan deep sleep, karena kita "memaksa" proses optimalisasi yang hanya bisa terjadi dengan syarat2
+tertentu terpenuhi, misal kondisi hp sedang gk dipake selama N-menit, atau pas posisi dicas tapi pas gk dipake selama beberapa menit,
+so aslinya gk wajib sih kalian melakukan proses satu ini, tapi menyicil proses optimalisasi tentu nggak buruk2 amat kan?)
+
+Kelamaan cerita, jadi gini caranya:
+
+# Jika hape kalian diroot:
+
+1. Buka aplikasi terminal emulator atau termux, terserah, ntar kalo ditanya magisk, diijinkan aja:
+
+su -c "cmd package bg-dexopt-job"
+
+2. Tunggu sampai selesai (Kalo pake android 10, nanti bakal muncul pesan "Success", tapi di Nougat-Pie hanya akan menampilkan baris command baru (ditandai munculnya tanda $))
+
+
+# Jika kalian nggak punya akses root, alias gk pasang magisk atau lainnya:
+
+1. Koneksikan hp ke komputer, jangan lupa nyalakan usb debugging, kemudian buka cmd/terminal (pastikan kalian memasang adb)
+   ketik command berikut :
+
+adb shell
+cmd package bg-dexopt-job
+
+2. Tunggu sampe selesai.
+
+Mencabut hp kalian/membatalkan ketika sedang terjadi proses itu aman dilakukan, ntar bisa dilanjut lagi kok.
+btw di hp yang gk diroot mungkin akan menjumpai kode kyk gini "user 2000 nor current process has Android.permission.Update_Device_Stats"
+
+Solusi? gak papa, biarin aja.
+Jika masih kepo, coba aja lakukan optimalisasi yang kedua, ntar gk ada lagi kode error itu.
+
+Note : 
+
+- Aslinya proses optimalisasi ini gk terbatas untuk user yang habis dirty update aja. Kalian yang user clean flash juga
+  bisa melakukannya setelah selesai melakukan restore dari migrate/titanium backup.
+- Gak wajib dilakukan, hanya jika kalian merasa buka app lebih lemot dari biasanya, atau ngerasa romnya gk bisa deep sleep
+  (woiya, mematikan aplikasi Google juga sangat membantu utk masalah deep sleep)
+
+
+Oiya, kalian penasaran kenapa kodenya kayak gitu? Yang rada paham teknis silahkan cek di sini : 
+https://android.googlesource.com/platform/frameworks/base.git/+/f7edab63d9358b9a4e0dbec3243f6db9f50a2bbe
+
+credit : 
+- tomascus @ xda-developers
+- anupritaisno1 @ https://forums.oneplus.com/threads/charging-battery-performance-caches-and-battery-calibration-myths-busted.993896/
+

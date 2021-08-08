@@ -1,0 +1,42 @@
+# ---- Setup Enviroments ---- #
+# Setup Enviroment for Arch/Manjaro
+# yay / AUR required
+yay -S aosp-devel
+
+# Setup Enviroment for Ubuntu/Debian
+sudo apt-get install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig bc ccache libssl-dev libncurses5-dev libncurses5
+
+# ---- ROM Source & Building --- #
+# Sync Source like Gawd
+# add --depth=1 = fast sync
+repo sync  -f --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+
+# Compile ROM Android R
+# More Infos
+https://gist.github.com/verNANDo57/d76bb6e6e4b887101cf5a1cf64c66cef
+
+export USE_CCACHE=1
+
+time (. build/envsetup.sh && lunch lineage_X00TD-user && make installclean && mka api-stubs-docs && mka module-lib-api-stubs-docs && mka system-api-stubs-docs && mka test-api-stubs-docs && mka bacon -j$(nproc --all))
+
+# Compile ROM Android Q
+
+export USE_CCACHE=1
+
+export _JAVA_OPTIONS="-Xmx4g"
+
+time (. build/envsetup.sh && lunch lineage_X00TD-user && make installclean && mka api-stubs-docs && mka hiddenapi-lists-docs && mka system-api-stubs-docs && mka test-api-stubs-docs && mka bacon -j$(nproc --all))
+
+# ---- Misc ---- #
+# Increase CPU Power for Arch Linux/Manjaro
+sudo cpupower frequency-set -g performance
+
+# Increase CPU Power for Ubuntu/Debian
+sudo cpufreq-set -c0 -g performance
+sudo cpufreq-set -c1 -g performance
+sudo cpufreq-set -c2 -g performance
+sudo cpufreq-set -c3 -g performance
+sudo cpufreq-set -c4 -g performance
+sudo cpufreq-set -c5 -g performance
+sudo cpufreq-set -c6 -g performance
+sudo cpufreq-set -c7 -g performance
