@@ -26,17 +26,3 @@ export USE_CCACHE=1
 export _JAVA_OPTIONS="-Xmx4g"
 
 time (. build/envsetup.sh && lunch lineage_X00TD-user && make installclean && mka api-stubs-docs && mka hiddenapi-lists-docs && mka system-api-stubs-docs && mka test-api-stubs-docs && mka bacon -j$(nproc --all))
-
-# ---- Misc ---- #
-# Increase CPU Power for Arch Linux/Manjaro
-sudo cpupower frequency-set -g performance
-
-# Increase CPU Power for Ubuntu/Debian
-sudo cpufreq-set -c0 -g performance
-sudo cpufreq-set -c1 -g performance
-sudo cpufreq-set -c2 -g performance
-sudo cpufreq-set -c3 -g performance
-sudo cpufreq-set -c4 -g performance
-sudo cpufreq-set -c5 -g performance
-sudo cpufreq-set -c6 -g performance
-sudo cpufreq-set -c7 -g performance
